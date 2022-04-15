@@ -1,3 +1,11 @@
+//variables
+let playerScore= 0;
+let computerScore = 0;
+
+
+
+
+//function for program to randomly pick rock paper or scissors
 function computerPlay() {
   let randomNumber = Math.floor(Math.random()*3) + 1;
 
@@ -8,47 +16,49 @@ function computerPlay() {
   } else return "SCISSORS";
 }
 
-let playerScore= 0;
-let computerScore = 0;
-let result = document.querySelector(".display")
-
+//main game round function
 function play(playerSelection, computerSelection) {
-  if ((computerSelection ==="ROCK" && playerSelection ==="ROCK") || (computerSelection ==="PAPER" && playerSelection ==="PAPER") || (computerSelection ==="SCISSORS" && playerSelection ==="SCISSORS")) {
+  if (playerScore == 5) {
+  result.innerHTML = "You win! Game over.";
+} else if (computerScore==5) {
+    result.innerHTML = "You lose! Game over."
+} else if (computerSelection === playerSelection) {
       result.innerHTML = "Both picked, " + playerSelection +" that's a draw! The score is: Player "+ playerScore +" Computer " + computerScore;
       console.log(result.innerHTML);
-  } else if (computerSelection === "ROCK" && playerSelection === "PAPER") {
+  } else if ((computerSelection === "ROCK" && playerSelection === "PAPER") || (computerSelection=== "PAPER" && playerSelection === "SCISSORS") || (computerSelection === "SCISSORS" && playerSelection === "ROCK")) {
       ++playerScore;
-      result.innerHTML = "You won! Paper beats Rock! The score is: Player "+ playerScore +" Computer " + computerScore;
+      result.innerHTML = "You won! " + playerSelection+ " beats " + computerSelection + " The score is: Player "+ playerScore +" Computer " + computerScore;
       console.log(result.innerHTML);
-  } else if (computerSelection=== "ROCK" && playerSelection === "SCISSORS") {
+      playerScoreBoard.innerHTML = playerScore;
+  } else if ((computerSelection=== "ROCK" && playerSelection === "SCISSORS") || (computerSelection === "PAPER" && playerSelection==="ROCK") || (computerSelection === "SCISSORS" && playerSelection === "PAPER")) {
       ++computerScore;
-      result.innerHTML = "You lost. Rock beasts Scissors. The score is: Player "+ playerScore +" Computer " + computerScore;
+      result.innerHTML = "You lost. " + computerSelection + " beats " + playerSelection + ". The score is: Player "+ playerScore +" Computer " + computerScore;
       console.log(result.innerHTML);
-  } else if (computerSelection === "PAPER" && playerSelection==="ROCK") {
-      ++computerScore;
-      result.innerHTML = "You lost. Paper beats Rock. The score is: Player "+ playerScore +" Computer " + computerScore;
-      console.log(result.innerHTML);
-  } else if (computerSelection=== "PAPER" && playerSelection === "SCISSORS") {
-      ++playerScore;
-      result.innerHTML = "You won. Scissors beats Paper. The score is: Player "+ playerScore +" Computer " + computerScore;
-      console.log(result.innerHTML);
-  } else if (computerSelection === "SCISSORS" && playerSelection === "PAPER") {
-      ++computerScore;
-      result.innerHTML = "You lost. Scissors beasts paper. The score is: Player "+ playerScore +" Computer " + computerScore;
-      console.log(result.innerHTML);
-  } else if (computerSelection === "SCISSORS" && playerSelection === "ROCK") {
-    ++playerScore;
-    result.innerHTML = "You win! Rock beats Scissors! The score is: Player "+ playerScore +" Computer " + computerScore;
-    console.log(result.innerHTML);
+      computerScoreBoard.innerHTML = computerScore;
   } return result.innerHTML;
 }
 
+function restart() {
+  playerScore = 0;
+  playerScoreBoard.innerHTML = playerScore;
+  computerScore = 0;
+  result.innerHTML = "Let's Play"
+};
 
+// UI
+let result = document.querySelector(".display")
 
-// adding selector and event listener for buttons to play the game
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
       play(button.id, computerPlay());
   })
 });
+
+const restartBtn = document.getElementById("restart");
+restartBtn.addEventListener('click', restart);
+
+const playerScoreBoard = document.querySelector(".pScoreText");
+const computerScoreBoard = document.querySelector(".cScoreText");
+
+

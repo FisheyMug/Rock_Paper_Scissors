@@ -1,3 +1,18 @@
+.container {
+    display: flex;
+    border: solid red 3px;
+    justify-content: space-around;
+}
+
+.playerScore {
+    width: 175px;
+    height: 200px;
+    border: solid black 2px;
+}
+ .pScoreText {
+     border: solid gold 2px;
+ }
+
 .display {
     display: flex;
     text-align: center;
@@ -7,4 +22,10 @@
     width: 500px;
     height: 250px;
     color: red;
-  }
+}
+
+.computerScore {
+    width: 175px;
+    height: 200px;
+    border: solid black 2px;
+}
